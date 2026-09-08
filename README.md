@@ -2,7 +2,7 @@
 # DFR JASA Discussion
 
 This repository contains the LaTeX source for a JASA
-discussion/commentary on Deep Frechet Regression, along with the code
+discussion/commentary on Deep Fréchet Regression, along with the code
 and figures used for the manifold dimension selection example.
 
 ## Repository Layout

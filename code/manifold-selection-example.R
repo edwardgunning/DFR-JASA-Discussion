@@ -22,16 +22,19 @@ x <- data.frame(
   X4 = rnorm(n, 0, 1), X5 = rnorm(n, -10, 3), X6 = rnorm(n, 10, 3),
   X7 = sample(c(0, 1), n, TRUE, c(0.4, 0.6)),
   X8 = sample(c(0, 1), n, TRUE, c(0.3, 0.7)),
-  X9 = sample(c(0, 1), n, TRUE, c(0.6, 0.3))
+  X9 = sample(c(0, 1), n, TRUE, c(0.6, 0.3)) # NOTE: I UNDERSTAND THESE DON'T SUM TO 1
+  # BUT THEY'RE INHERITED FROM https://github.com/SUIIAO/Deep-Frechet-Regression/blob/main/simulation/distributional/DenSimuManifold.R
 )
 xout <- data.frame(
   X1 = runif(nOut, -1, 0), X2 = runif(nOut, 0, 1), X3 = runif(nOut, 1, 2),
   X4 = rnorm(nOut, 0, 1), X5 = rnorm(nOut, -10, 3), X6 = rnorm(nOut, 10, 3),
   X7 = sample(c(0, 1), nOut, TRUE, c(0.4, 0.6)),
   X8 = sample(c(0, 1), nOut, TRUE, c(0.3, 0.7)),
-  X9 = sample(c(0, 1), nOut, TRUE, c(0.6, 0.3))
+  X9 = sample(c(0, 1), nOut, TRUE, c(0.6, 0.3)) # NOTE: I UNDERSTAND THESE DON'T SUM TO 1
+  # BUT THEY'RE INHERITED FROM https://github.com/SUIIAO/Deep-Frechet-Regression/blob/main/simulation/distributional/DenSimuManifold.R
 )
 
+# NOTE, KEEP SMALL TYPO FOR CONSISTENCY WITH AUTHORS' EXAMPLE. R WILL RE-NORMALIZE PROBABILITIES ANYWAY!
 
 # Original Example: -------------------------------------------------------
 # Generate response data
@@ -74,7 +77,7 @@ for (i in 1:n) {
 
   # Generate response and true quantile values
   y_pert[[i]] <- sort(mu + sigma * rnorm(N)) # rnorm(N, mean = mu, sd = sigma)
-  yMean_pert[i, ] <- expect_eta_Z + expect_sigma_Z * qnorm(c(1:(N - 1)) / N)
+  yMean_pert[i, ] <- expect_eta_Z_vec[i] + expect_sigma_Z_vec[i] * qnorm(c(1:(N - 1)) / N)
 
   mu.sd_pert <- rbind(mu.sd_pert, data.frame(mu, sigma))
 }
@@ -100,7 +103,7 @@ for (i in 1:n) {
   expect_alpha_Z <- (2 * x[i, 9] - 1) * (3.50 + 0.75 * mu_curve)
 
   # Sample mean, standard deviation, and skewness
-  mu <- rnorm(1, mean = expect_eta_Z, sd = 0.1)
+  mu <- rnorm(1, mean = expect_eta_Z, sd = 1)
   sigma <- rgamma(1, shape = expect_sigma_Z^2 / kappa, scale = kappa / expect_sigma_Z)
   alpha <- rnorm(1, mean = expect_alpha_Z, sd = 0.25)
 
@@ -369,16 +372,13 @@ p1 <- ggplot(data = dt_plot_lng) +
 
 ylims <- range(eps_1, eps_2, eps_3_k2, eps_3_k3)
 
-png(here::here("figures", "individual-losses-group-third-isomap.png"),
-  width = 10, height = 10,
-  units = "in", res = 400
-)
+
 par(mfrow = c(2, 2))
 boxplot(eps_1 ~ x$X9, ylim = ylims, col = c("dodgerblue3", "tomato3"))
 boxplot(eps_2 ~ x$X9, ylim = ylims, col = c("dodgerblue3", "tomato3"))
 boxplot(eps_3_k2 ~ x$X9, ylim = ylims, col = c("dodgerblue3", "tomato3"))
 boxplot(eps_3_k3 ~ x$X9, ylim = ylims, col = c("dodgerblue3", "tomato3"))
-dev.off()
+
 
 pca_3 <- prcomp(y_mat_group)
 
