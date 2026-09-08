@@ -7,15 +7,13 @@ and figures used for the manifold dimension selection example.
 
 ## Repository Layout
 
-- `jasa-manuscript.tex`: main JASA manuscript file.
+- `jasa-manuscript.tex`: main JASA manuscript LaTeX file.
 - `manuscript/`: section-level manuscript source files.
 - `references.bib`: bibliography database.
 - `agsm.bst`: bibliography style used by the JASA template.
 - `figures/`: figure files included in the manuscript.
 - `code/manifold-selection-example.R`: R script used to generate the
   simulation figures.
-- `preprint-manuscript.tex`: earlier preprint manuscript source, kept
-  for reference.
 
 ## Build Locally
 
@@ -113,7 +111,7 @@ sessionInfo()
     ## [1] stats     graphics  grDevices datasets  utils     methods   base     
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] compiler_4.5.2  fastmap_1.2.0   cli_3.6.5       htmltools_0.5.9
-    ##  [5] tools_4.5.2     yaml_2.3.12     rmarkdown_2.31  knitr_1.51     
-    ##  [9] xfun_0.60       digest_0.6.39   rlang_1.1.6     renv_1.2.3     
-    ## [13] evaluate_1.0.5
+    ##  [1] compiler_4.5.2    fastmap_1.2.0     cli_3.6.5         htmltools_0.5.9  
+    ##  [5] tools_4.5.2       otel_0.2.0        rstudioapi_0.19.0 yaml_2.3.12      
+    ##  [9] rmarkdown_2.31    knitr_1.51        xfun_0.60         digest_0.6.39    
+    ## [13] rlang_1.3.0       renv_1.2.3        evaluate_1.0.5

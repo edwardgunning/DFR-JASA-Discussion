@@ -14,15 +14,13 @@ dimension selection example.
 
 ## Repository Layout
 
-- `jasa-manuscript.tex`: main JASA manuscript file.
+- `jasa-manuscript.tex`: main JASA manuscript LaTeX file.
 - `manuscript/`: section-level manuscript source files.
 - `references.bib`: bibliography database.
 - `agsm.bst`: bibliography style used by the JASA template.
 - `figures/`: figure files included in the manuscript.
 - `code/manifold-selection-example.R`: R script used to generate the simulation
   figures.
-- `preprint-manuscript.tex`: earlier preprint manuscript source, kept for
-  reference.
 
 ## Build Locally
 
