@@ -64,7 +64,9 @@ When such an investigation finds that $r \gg 2$ is required, as we have found in
 
 \section{Does Generality Preclude Decoders?}
 
-The CLaRe framework assumes both an encoder and a decoder in order to assess reconstruction error. Local \Frechet regression maps to an encoder, but not in reverse. This yields a model in which errors appear both in the latent and the object space. One of the attractive features of DFR is that it only requires the response objects to live in a space equipped with a metric.
+The CLaRe framework assumes both an encoder and a decoder in order to assess reconstruction error.
+Manifold learning and local \Frechet regression act as encoder and decoder analogues, respectively, but not as a conventional reconstruction pair.
+This yields a model in which errors appear both in the latent and the object space. One of the attractive features of DFR is that it only requires the response objects to live in a space equipped with a metric.
 In practice, however, computation of the local \Frechet regression model involves a search over the space of objects (the paper's (14)), which implies the need for additional structure.
 Structure, in this context, refers to how the objects are represented numerically in a vector (i.e., ``vectorized'') in order to perform computations.
 Object-specific examples include the discretized quantile function representation of distributions and the positive semidefinite matrix parametrization of covariance objects.
