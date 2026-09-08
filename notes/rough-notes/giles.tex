@@ -1,0 +1,29 @@
+\subsection*{Giles' rough notes}
+
+\begin{itemize}
+    \item Map goes object to euclidean coordinates $Y \rightarrow Z$,  model $Z$ as function of covariates $X$; $Z = g(X) + \epsilon$; now predict new $Y$ by minimizing
+    \[
+        \sum d(y,Y_i) K(g(X), g(X_i))
+    \]
+    (actually local linear regression equivalent) over $y$. 
+
+    \item Led to rather clunky stucture by insisting the only thing we know about $Y$ is a distance. This implies you can't directly predict it.   Also ISOmap type methods necessary for dimension reduction; don't really have an explicit decoder. 
+
+    \item Generality is nice, and by using $Z$ as a dimension bottleneck, they some additional sample efficiency as measured in convergence rates. 
+
+    \item Disadvantage; mutli-stage structure that locates errors in two places; $Y$ and $Z$. This makes doing uncertainty quantification challenging. 
+
+    \item Also, in many specific cases the generality is not necessary and directly modeling $Y$ is more direct and provides better interpretability. 
+
+    \item In the case where we have encoder-decoder architecture, the CLaRe framework suggests looking for embeddings where one set of errors is zero-d out -- that from the decoder. 
+
+    \item Can think of the minimization step as being "decoder-like" and could in fact be part of a decoder; eg in the case of discrete-but-structured objects. 
+
+    \item But even here, CLaRe says that once you are lossless (possibly up to what you might consider measurement noise), you only have to look at what you are doing in Euclidean variables. 
+
+    \item Can one always do this? Trivially, but unhelpfully if the encoding dimension is $n$. But the fact that you can do the search for a minimizer means that you do have some reasonable euclidean representer in practice. 
+
+    \item So CLaRE principles wouldn't necessarily change the over-all structure, but would treat the manifold learning step as something that should be done with a decoder in such a way that it can essentially be ignored. 
+
+    \item That means you do need to know more structure about your objects (minimization step means you need this in practice, too), but gets you back to familiar multivariate regression modeling. 
+\end{itemize}

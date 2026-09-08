@@ -1,0 +1,237 @@
+\documentclass[compress]{beamer}
+\useinnertheme{rectangles}
+\usecolortheme{orchid}
+\useoutertheme{miniframes}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{separation line}{use=structure,bg= structure.fg!20!bg}
+\setbeamercovered{dynamic}
+\newcommand{\lined}{\hfill\hrule\hfill\vspace{1.5mm}}
+\setbeamertemplate{headline}{%
+  \textcolor{blue}{\lined}
+  \textcolor{blue}{\lined}
+  \textcolor{blue}{\lined}
+}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{amsmath,amssymb,mathtools}
+
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{footline}[page number]
+
+\newcommand{\argmin}{\ensuremath{\operatornamewithlimits{argmin}}}
+\newcommand{\tR}{\mathbb{R}}
+\newcommand{\Frechet}{Fr\'echet}
+\newcommand{\Zbold}{\bm{Z}}
+\newcommand{\Xbold}{\bm{X}}
+
+\begin{document}
+
+%========================= TITLE =========================
+\begin{frame}
+
+\title{Discussion of \\ \emph{Deep \Frechet{} Regression} \\ \vspace{0.15cm} {\small Su I Iao, Yidong Zhou \& Hans-Georg M\"uller}}
+
+\author{Edward Gunning, Giles Hooker, Kyle Stanley \& Jeffrey S. Morris}
+
+\date{JASA Special Issue on Statistical Science in Artificial Intelligence \\ \vspace{0.1cm} {\small August 2026}}
+
+\maketitle
+
+\end{frame}
+
+
+%========================= SLIDE 1 =========================
+\begin{frame}{A Program for Data in Metric Spaces}
+
+\begin{itemize}
+\item Modern responses are complex objects: distributions, covariance matrices, graph Laplacians, trees, shapes; do not fit within current statistical paradigms. 
+
+\item Papers continue influential program on \Frechet{} regression for random objects (Petersen \& M\"uller 2019; Zhou \& M\"uller 2022; Dubey, Chen \& M\"uller 2024).
+
+\item Assume {\em only} a distance $d(\cdot,\cdot)$ between objects. Two strategies
+\begin{itemize}
+\item[(a)] {\bf Weight the distances} --- \Frechet{} means / regression
+\[
+\hat{m}(x) = \argmin_{y \in \Omega} \sum_i w_i(x)\, d^2(Y_i,y)
+\]
+
+\item[(b)] {\bf Translate to Euclidean space}, model there, map back.
+\end{itemize}
+\end{itemize}
+
+Use deep learning for both; we will focus on (b) composite map $m = v \circ g_0$, a useful mirror to our own work on latent representations.
+
+\end{frame}
+
+
+%========================= SLIDE 2 =========================
+\begin{frame}{How Do We Choose the Manifold Dimension?}
+
+Embed the responses, then predict the embedding with a deep network:
+\[
+\underbrace{Y \xrightarrow{\ \psi \ (\text{ISOMAP})\ } \Zbold = (Z_1,\dots,Z_r) \in \tR^r}_{\text{embed responses}},
+\qquad
+\hat{Z}_j = \hat{g}_j(\Xbold).
+\]
+
+\begin{itemize}
+\item Paper and supplement: $r = 2$; accompanying code fixes $r \le 2$.
+
+\item Exact in simulations (Gaussian $\Rightarrow$ 2-D) but unknown in practice, and sensitivity  unexplored.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Compact Near-Lossless Latent Representations} 
+
+{\bf CLaRe} (Zohner, Gunning, H.\ \& Morris 2025) examines how to choose a Euclidean representation $f(y)$
+
+\vspace{0.2cm}
+
+Assume encoder $f(y): \Omega \rightarrow \mathbb{R}^r$ and decoder $g(x): \mathbb{R}^r \rightarrow \Omega$, chosen according to
+
+\begin{itemize}
+\item {\bf Near-losslessness}: object reconstruction, controlled at the {\em tail}:
+\[
+\mathbb{P}\{\, d(\,g(f(Y)),\,Y\,) \le \epsilon \,\} \ge 1-\alpha.
+\]
+
+\item {\bf Compactness}: as few coordinates as possible.
+\end{itemize}
+
+Reconstruction error measured out-of-sample, or in cross-validation. 
+
+\vspace{0.2cm}
+
+Reasoning: represent all object details, move analysis to multivariate, Euclidean settings. 
+
+\vspace{0.2cm}
+
+Metric space analogy: examine reconstruction of distances. 
+
+\end{frame}
+
+
+%========================= SLIDE 3a =========================
+\begin{frame}{A Variation on Simulation Studies}
+
+Author's simulated quantile functions; use same conditional mean and variance, add a {\em skew} parameter $\alpha$ determined by $X_9$:
+
+\begin{itemize}
+\item Raw quantile functions of the three settings look essentially alike.
+\item Project onto $(1,\Phi,\Phi^2) \approx (\text{mean, variance, skew})$ color by $X_9$: effect of skew normal becomes clear.  
+\end{itemize}
+
+\centering
+\includegraphics[width=0.96\textwidth]{figures/manifold-data-group-third-isomap.png}
+
+\end{frame}
+
+
+%========================= SLIDE 3b =========================
+\begin{frame}{The Signal in the Tail}
+
+Reconstruct each object's geodesic distances from an $r$-dimensional ISOMAP embedding; look at the {\em individual} errors.
+
+\centering
+\includegraphics[width=\textwidth]{figures/bottom-row-plot.pdf}
+
+{\raggedright
+\begin{itemize}
+\item Aggregate summaries at $r = 2$ look ok. 
+\item {\em tail} collapses at $r = 3$; but this is what captures skew. 
+\end{itemize}
+\par}
+
+\end{frame}
+
+
+%========================= SLIDE 4a =========================
+\begin{frame}{Ups and Downs of Generality}
+
+%\begin{center}\bf Where does the error live?\end{center}
+
+Multi-stage process produces errors in two places
+\begin{itemize}
+\item ISOmap embedding/reconstruction
+
+\item Predictive error from DNN 
+\end{itemize}
+Appears in mathematical analysis, but also model checking, uncertainty quantification, $\ldots$.. 
+
+\vspace{0.2cm}
+
+\begin{itemize}
+\item CLaRe objective:  make embedding/reconstruction error ignorable, all error in Euclidean representation
+\begin{itemize}
+\item Requires encoder/decoder architecture; not obviously implied with just metric space assumptions
+
+\item Reconstruction of {\em distances} does not imply reconstruction of {\em objects}
+\end{itemize}
+
+\item Zhou, Lao,  Muller, 2026: parameterize similarity weights $w_j(X)$, $\Rightarrow$ error in object space
+\begin{itemize}
+\item Does not require decoder, less obvious model validation. 
+\end{itemize}
+\end{itemize}
+
+
+%DFR's generality spreads error across {\em stages}:
+%\[
+%d\{\hat{m}(\Xbold),m(\Xbold)\} = O_p\!\Big(
+%\underbrace{h^{\frac{2}{\gamma_1-1}}}_{\text{LFR bias}}
+%+ \underbrace{(nh^r)^{-\frac{1}{2(\gamma_2-1)}}}_{\text{LFR variance}}
+%+ \underbrace{(h^{-r-1}\zeta_n)^{\frac{1}{\gamma_3-1}}}_{\text{embed + DNN}}
+%\Big)
+%\]
+%with $\zeta_n = \kappa_n \log^{3/2} n + u_n$; the ISOMAP bias $u_n$ has, as the authors note, no asymptotic theory yet.
+
+%\begin{itemize}
+%\item Error sits in {\em both} the latent prediction and the \Frechet{} decode $\Rightarrow$ hard to attribute, hard to do UQ.
+%
+%\item CLaRe's aim: drive the reconstruction error to (near) zero, so {\em all} uncertainty is the Euclidean latent model.
+%
+%\item Good {\em distance} reconstruction $\ne$ good {\em object} reconstruction --- in a bare metric space only the former is even defined.
+%\end{itemize}
+
+\end{frame}
+
+
+%========================= SLIDE 4b =========================
+\begin{frame}{Does Generality Preclude Decoders}
+
+\Frechet{} regression defined by optimization {\em over objects}:
+\[
+\hat{m}(\Xbold) = \hat{v}_h(\hat{\Zbold})
+= \argmin_{y \in \Omega} \sum_{i=1}^n \hat{w}(\hat{\Zbold}_i,\hat{\Zbold},h)\, d^2(Y_i,y).
+\]
+
+\begin{itemize}
+\item To {\em search} over $y \in \Omega$ you must already represent objects on a computer (discretized quantile functions, PSD parametrizations, \dots).
+
+\item Mathematical generality does not circumvent object-specific implementation; user must specify how to optimized within $\Omega$
+
+\item Computer representation means explicit encoder--decoder is available in principle. 
+
+\item Once the encoder/decoder is (near-)lossless, we are back in familiar, Euclidean territory. 
+\end{itemize}
+
+
+But CLaRe does not admit the mathematical generality that simply working with metric spaces allows.  
+
+\end{frame}
+
+
+\begin{frame}{References}
+    
+\end{frame}
+
+\end{document}

@@ -1,0 +1,83 @@
+
+
+\subsubsection*{Ed's rough notes}
+\subsubsection*{Summary}
+
+They present a framework for regressing object data that reside in a metric space on a set of potentially high-dimensional Euclidean predictors. Mmethodology comprises four main steps.
+
+\begin{enumerate}
+  \item First, they \emph{embed} $Y$, the random object in a metric space which is the
+  response of interest, into a low-dimensional Euclidean space. 
+  They denote the low-dimensional ``embeddings" by $\mathbf{Z}= (Z_1,\dots, Z_r)^\top=\psi(Y)$.
+  The authors' framework is general such that different manifold learning teachniques can be used to find the map $\psi$, but in the simulations and examples, they employ ISOMAP (or MDS) with $m=2$. 
+  
+  \item The authors then regress each embedding co-
+  ordinate sequentially on the covariate set $\mathbf{X}$ non-parametrically using deep neural networks. That is, they assume that the dependence of each embedding co-ordinate on covariates can be approximated using the non-linear regression function $Z_j \approx g_j(\mathbf{X})$.
+  
+  \item For each observation $\mathbf{X}_i$, the vector of fitted embeddings, based on the learned functions $\widehat{g}_1, \dots, \widehat{g}_r$ and the covariate set $\mathbf{X}_i$ is available:
+  $$
+  \widehat{\mathbf{Z}}_i = (\widehat{g}_1(X_i), \dots, \widehat{g}_r(X_i))^\top.
+  $$
+  Now, for each observation's predictor $X_i$, we have another Euclidean predictor $\widehat{\mathbf{Z}}_i$ whose value represents its predicted value in the manifold embedding of $Y$.\emph{\color{blue}TBC: Should Euclidean distance between $X_1$ and $X_2$ indicate something like how close we would expect $Y_1$ and $Y_2$ to be based on $X_1$ and $X_2$.}
+  
+\item These are used as weights in the kernel in local Fr\'echet regression, rather than the predictors themselves.
+
+\end{enumerate}
+
+
+\subsubsection*{Thoughts}
+
+\paragraph*{Manifold Dimensions}
+
+Choosing the \emph{intrinsic manifold dimension} $r$ seems to be a fundamental step. 
+
+In our own work, we generally work with a notion of (near-)losslessness to ascertain that our embedding can be inverted to obtain a fidile reconstruction of the observed object.
+In this way, we gain confidence that the lower-dimensional embedding $Z$ contains (almost) all of the information in $Y$, and can be used in lieiue in downstream modelling.
+
+For example, we could envisage a scenario in simulation 1, where rather than data arising from Normals (Gaussians), we could have data arising from skew-normals (CITE), with the additional skewness parameter $\alpha$ also drawn randomly and also having a strong non-linear dependence on $X$. In this case, employing ISOMAP with $r=2$ might miss important $X$-dependent structure in the objects.
+
+\paragraph*{Relationship to Fr\'echet regression}
+
+Benefits of using $Z$, rather than $X$ as kernel weights?
+
+\paragraph*{Inference}
+
+The current framework focuses mainly on prediction, i.e., producing fitted values of the object-valued response.
+However, regression is also employed to \emph{infer} the nature of covariate effects on the response.
+In the current framework, it is not clear how we can identify whether a the effect of a covariate $X_j$ on the object $Y$ is statistically significant, or characterise the nature of this relationship.
+
+\begin{enumerate}
+  \item \textbf{where should we do the testing}? is it on the latent embeddings? 
+  \item \textbf{how do we do the testing}? things to think about bootstrap/ varable importance.
+  \item \textbf{does this take into account potential dependence across embedding coordinates}.
+\end{enumerate}
+
+\paragraph*{Diagnostics/ Structure}
+
+The non-linear dependence between $\mu$ and $\sigma$ (or dim1 and dim2) marginally over $X$ shown in Figure $1$, is due to highly non-linear dependence of both dimensions on $X$.
+However, in practice, this may not be the case.
+It could be that there is just dependence among the observation-specific deviations from the conditional mean structure.
+Of course if we had a parametric assumption such as the true data generating process used for $\mu$, then we whie noise residuals would indicate that we're capturing the $X$-dependent structure in our model well. But we don't
+
+\paragraph*{Transformation modelling comparisons}
+
+Maybe a larger Fr\'echet regression vs. transformation modelling question.
+
+Relative advantages/ disadvantages, very rough idea:
+
+\begin{itemize}
+  \item inference -- can we, how, how is it summarized?
+  \item generativity -- do we have a generative model?
+  \item generality -- does a transformation always exist?
+\end{itemize}
+
+
+relevant examples:
+\begin{itemize}
+  \item Covariance matrices (cite Desai)
+  \item Log-quantile density? (cite Mueller and Petersen). What would happen in your quantile function examples if we did LQD, followed by DNN.
+\end{itemize}
+
+\paragraph*{Other}
+
+E.g., dependence on manifold learning method.

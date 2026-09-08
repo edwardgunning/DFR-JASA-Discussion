@@ -1,0 +1,58 @@
+\subsection*{Kyle's rough notes}
+
+\begin{itemize}
+
+    \item Summary
+    \begin{itemize}
+        \item Develop approach for regressing non-Euclidean objects on high-dimensional predictors that does not impose parametric assumptions. 
+        \item GFR (which generalizes linear regression) imposes strict assumptions. LFR (which generalizes nonparametric regression) suffers from the curse of dimensionality. DFR addresses these limitations -- i.e., handles high-dimensional predictors without compromising model flexibility -- by incorporating DNNs. 
+        \item DFR Framework
+        \begin{itemize}
+            \item Learn $r$-dimensional representations of object-valued data using manifold learner ($\psi$; ISOMAP).
+            \item Learn $r$ DNNs ($g_j$), each taking the predictors as input and outputting one coordinate of the manifold representation.
+            \item Map conditional mean in representation space to object space via LFR ($v$), using the fitted values of the DNN as predictors. 
+        \end{itemize}
+    \end{itemize}
+
+    \item Comments
+    \begin{itemize}
+    
+        \item Comparison to SGM
+        \begin{itemize}
+            \item Analogies to SGM 
+            \begin{itemize}
+                \item ISOMAP like our encoder
+                \item LFR like our decoder
+                \item DNN like our latent statistical model
+            \end{itemize}
+            \item Their encoder (ISOMAP) aims to preserve geodesic distances in representation space while our encoder does not explicitly preserve distances. We instead encourage certain properties -- compactness, near-losslessness, Gaussianity -- and discover semantic structure.  So our models -- their DNN our statistical model -- are fit in spaces with fundamentally different geometries.  
+        \end{itemize}
+
+        \item Even though they compute conditional expectations in representation space then decode, their inferential targets are expectations in object space. This approximation, $\text{Decode}\{ \mathbb{E}(Z) \} \approx \mathbb{E} \{ \text{Decode}(Z) \}$, does not hold in general. In their setting, I think the approximation holds provided the representation space is geodesic-preserving. 
+        \begin{itemize}
+            \item Their approximation depends on ISOMAP reliably preserving geodesics. While they account for the bias introduced by ISOMAP in Theorem 2, the nature of this bias is not understood. 
+            \item Choosing the latent dimension seems like an important question in their setting -- wrong choice of $r$ leads to representation that doesn't preserve geodesics, which leads to bad approximation. Do they describe how to choose $r$?
+        \end{itemize}
+
+        \item DNNs are learned independently in representation space. Not clear whether independent fitting is justified.
+
+        \item DFR does not offer an inferential toolbox -- no testing, confidence intervals, etc. 
+
+        \item LFR uses fitted values from DNNs to predict object-valued response. This decoding strategy is not cursed by dimensionality provided the latent dimension $r$ is small. However, LFR may struggle to stably decode for complex object data with moderate-to-large $r$.
+        
+    \end{itemize}
+
+    \item Questions
+    \begin{itemize}
+        \item How are they choosing $r$? Are they just using $r = 2$?
+        \item Is there something special about using LFR as the decoder?
+    \end{itemize}
+
+    \item Other Notes
+    \begin{itemize}
+        \item Faraway (2014) is another early predecessor to the encode-model-decode approach. The work ``scores'' (like ``embeds'') object-valued data by computing pairwise Euclidean distances, then applying multi-dimensional scaling. Worth citing in our work.
+        \item Could be interesting to test manifold learners that explicitly preserve distances in our work. 
+    \end{itemize}
+
+    
+\end{itemize}

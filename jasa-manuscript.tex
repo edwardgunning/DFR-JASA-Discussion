@@ -1,0 +1,161 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{xparse}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp}
+\else
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{%
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath}
+}{}
+
+\setlength{\emergencystretch}{3em}
+\setcounter{secnumdepth}{5}
+
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{}
+\usepackage[
+  colorlinks=true,
+  breaklinks=true,
+  linkcolor=blue,
+  anchorcolor=black,
+  citecolor=Blue,
+  filecolor=Maroon,
+  menucolor=red,
+  urlcolor=Blue]{hyperref}
+\urlstyle{same}
+\usepackage{bookmark}
+
+\hypersetup{
+  pdftitle={Comments on Deep Fréchet Regression},
+  pdfauthor={Edward Gunning; Kyle Stanley; Jeffrey S. Morris; Giles Hooker},
+  pdfkeywords={Fréchet regression, object data, manifold learning, deep learning},
+  pdfcreator={LaTeX}}
+
+\addtolength{\oddsidemargin}{-.5in}
+\addtolength{\evensidemargin}{-.1in}
+\addtolength{\textwidth}{1in}
+\addtolength{\textheight}{1.7in}
+\addtolength{\topmargin}{-1in}
+\newcommand{\Frechet}{Fr\'echet\xspace}
+\newcommand{\anon}{1}
+\let\natbibtextcite\citet
+\let\natbibparencite\citep
+\NewDocumentCommand{\textcite}{o m}{%
+  \IfNoValueTF{#1}{\natbibtextcite{#2}}{\natbibtextcite[#1]{#2}}%
+}
+\NewDocumentCommand{\parencite}{o o m}{%
+  \IfNoValueTF{#1}{%
+    \natbibparencite{#3}%
+  }{%
+    \IfNoValueTF{#2}{\natbibparencite[#1]{#3}}{\natbibparencite[#1][#2]{#3}}%
+  }%
+}
+
+\begin{document}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}{#1}\small\normalsize}
+\spacingset{1}
+
+\if1\anon
+{
+  \title{\bf Comments on \emph{``Deep \Frechet Regression''} by Su I Iao, Yidong Zhou \& Hans-Georg Müller}
+  \author{
+    Edward Gunning\hspace{.2cm}\\
+    School of Mathematical Sciences,\\ University College Cork, Ireland\\
+    and\\
+    Kyle Stanley\\
+    Department of Biostatistics, Epidemiology and Informatics, \\University of Pennsylvania\\
+    and\\
+    Jeffrey S. Morris\\
+    Department of Biostatistics, Epidemiology and Informatics,\\ University of Pennsylvania\\
+    and\\
+    Giles Hooker\\
+    Department of Statistics and Data Science,\\ University of Pennsylvania}
+  \date{August 2026}
+  \maketitle
+} \fi
+
+\if0\anon
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Comments on \emph{``Deep \Frechet Regression''}}
+  \end{center}
+  \medskip
+} \fi
+
+\bigskip
+\input{manuscript/abstract}
+
+% \noindent%\input{jasa-manuscript}
+% {\it Keywords:} Fréchet regression, object data, manifold learning, deep learning
+\vfill
+
+\newpage
+\spacingset{1.8}
+
+\input{manuscript/summary}
+
+%\input{manuscript/benefits}
+
+\input{manuscript/questions}
+
+\input{manuscript/conclusion}
+
+\input{manuscript/supplementary-material}
+
+\bibliography{references}
+
+\end{document}
