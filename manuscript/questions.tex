@@ -1,4 +1,4 @@
-We appreciate the generality of the mathematical results that this approach allows. In this, case that generality also leaves a significant amount of detail that must be specified for any particular study. 
+We appreciate the generality of the mathematical results that this approach allows. However, that generality also leaves a significant amount of detail that must be specified for any particular study.
 Here we consider some issues regarding the practical implementation of the DFR framework that we believe are worthy of further discussion.
 
 \section{Selecting the Intrinsic Manifold Dimension}
@@ -36,13 +36,13 @@ On the surface, all three sets of discretized empirical quantile functions appea
 The second row of Figure \ref{fig:simulation-example} shows a linear projection of the discretized quantile functions onto three dimensions that approximately represent the mean, variance, and skewness of the distributions, respectively, colored according to the feature $X_9$.
 Here, the difference in dimensionality is more evident---for the skew-normal example, there is additional structured variation in the skewness (vertical) coordinate, exhibiting a between-group/covariate dependence.
 The third and fourth rows display some diagnostics that could be used to identify a suitable ISOMAP manifold dimension, $r$.
-The third row displays the first ten eigenvalues from the MDS step in ISOMAP; we interpret these as an aggregated measure of how well an $r$-dimensional ISOMAP representation preserves the geodesic distances in the dataset.
-More in line with our CLaRe philosophy, in the bottom row (left) we present a measure of how well each of the $500$ observations' geodesic distances with the other objects is preserved, for $r=1, \dots, 4$. 
+The third row displays the first ten eigenvalues from the classical multidimensional-scaling step inside ISOMAP; we interpret these as an aggregated measure of how well an $r$-dimensional ISOMAP representation preserves the geodesic distances in the dataset.
+More in line with our CLaRe philosophy, in the bottom row (left) we present a measure of how well each of the $500$ observations' geodesic distances with the other objects is preserved in the skew-normal example, for $r=1, \dots, 4$. 
 This plot makes it clearer that $3$ dimensions should be retained with ISOMAP to preserve the structure in the original space, since the distance reconstruction errors almost vanish when moving from a two to three-dimensional representation. 
 Finally, on the right of the bottom panel, we plot the third ISOMAP dimension against the true expected $\alpha$ parameter; very clearly, this dimension is required for capturing the between-group difference.
 
 This short example demonstrates that careful selection of the embedding dimension $r$ is an important step of the DFR methodology and should be given further consideration.
-When such an investigation finds that $r \gg 2$ is required, as have in different scientific applications, some guidance on whether DFR is still feasible or whether alternatives need to be considered could be provided.
+When such an investigation finds that $r \gg 2$ is required, as we have in different scientific applications, some guidance on whether DFR is still feasible or whether alternatives need to be considered could be provided.
 
 \begin{figure}
     \centering
@@ -56,7 +56,7 @@ When such an investigation finds that $r \gg 2$ is required, as have in differen
     \textbf{Second row}: A linear projection of the empirical quantile functions into three-dimensional space that approximately spans the skew-normal family for each of the examples.
     Points are colored according to their value of the binary covariate $X_9$.
     \textbf{Third row}: The eigenvalues obtained from the MDS step in ISOMAP for each of the examples.
-    \textbf{Fourth row (bottom panel)}: \textbf{Left}: Boxplot of the individual observations' geodesic distance reconstructions as a function of the ISOMAP dimension $r$, stratified by the binary covariate $X_9$.
+    \textbf{Fourth row}: \textbf{Left}: Boxplot of the individual observations' geodesic distance reconstructions as a function of the ISOMAP dimension $r$, stratified by the binary covariate $X_9$.
     \textbf{Right}: The third ISOMAP coordinate plotted against the true expected $\alpha$ skewness parameter, colored according to $X_9$.
     }
     \label{fig:simulation-example}
@@ -64,7 +64,7 @@ When such an investigation finds that $r \gg 2$ is required, as have in differen
 
 \section{Does Generality Preclude Decoders?}
 
-The CLaRe framework assumes both an encoder and a decoder in order to asssess reconstruction error. Local \Frechet regression maps to an encoder, but not in reverse. This yields a model in which errors appear both in the latent and the object space. One of the attractive features of DFR is that it only requires the response objects to live in a space equipped with a metric.
+The CLaRe framework assumes both an encoder and a decoder in order to assess reconstruction error. Local \Frechet regression maps to an encoder, but not in reverse. This yields a model in which errors appear both in the latent and the object space. One of the attractive features of DFR is that it only requires the response objects to live in a space equipped with a metric.
 In practice, however, computation of the local \Frechet regression model involves a search over the space of objects (the paper's (14)), which implies the need for additional structure.
 Structure, in this context, refers to how the objects are represented numerically in a vector (i.e., ``vectorized'') in order to perform computations.
 Object-specific examples include the discretized quantile function representation of distributions and the positive semidefinite matrix parametrization of covariance objects.
