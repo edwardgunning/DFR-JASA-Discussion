@@ -1,0 +1,39 @@
+\documentclass{letter}
+\usepackage{graphics}
+\usepackage{fullpage}
+\topmargin=-0.2in
+%\headheight=0in
+\pdfminorversion=4 % as instructed by JASA file upload
+\setlength\oddsidemargin{-0.2in}
+\textheight=8.5in
+\textwidth=7in
+\def\apl#1#2{
+\begin{letter}{#1}
+\signature{
+\pdfimage width 1in {signature-cover-letter.pdf}
+Edward Gunning\\
+School of Mathematical Sciences\\
+University College Cork
+\\Ireland\\{\tt egunning@ucc.ie}}
+\opening{{Dear #2,}}
+
+Please find enclosed our manuscript
+
+The work has not been published or submitted for consideration for publication elsewhere and all authors have read and approved the final version.
+The manuscript adheres prescribed limit of 8 pages (including references and figures, excluding the title page).
+In line with the JASA reproducibility policy, we have prepared a GitHub repository containing code and workflow to reproduce the results in the manuscript.
+
+Thank you for your consideration of our work.
+
+
+\closing{Yours sincerely,
+}
+\end{letter}}
+
+\begin{document}
+
+% {{\pdfimage width 1.5in {logo.jpg}}}
+\apl{Dylan Small's affiliation}{Dylan Small}
+
+\end{document}
+Footer
