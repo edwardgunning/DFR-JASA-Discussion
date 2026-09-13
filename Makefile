@@ -1,6 +1,6 @@
-MAIN := jasa-manuscript
+MAIN := jasa_manuscript
 TEX := $(MAIN).tex
-BLINDED := anonymous-jasa-manuscript
+BLINDED := anonymous_jasa_manuscript
 BLINDED_TEX := $(BLINDED).tex
 COVER := cover-letter/main.tex
 
