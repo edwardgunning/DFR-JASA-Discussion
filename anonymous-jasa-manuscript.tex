@@ -87,7 +87,7 @@
 \addtolength{\textheight}{1.7in}
 \addtolength{\topmargin}{-1in}
 \newcommand{\Frechet}{Fr\'echet\xspace}
-\newcommand{\anon}{1}
+\newcommand{\anon}{0}
 \let\natbibtextcite\citet
 \let\natbibparencite\citep
 \NewDocumentCommand{\textcite}{o m}{%
@@ -100,6 +100,7 @@
     \IfNoValueTF{#2}{\natbibparencite[#1]{#3}}{\natbibparencite[#1][#2]{#3}}%
   }%
 }
+
 
 \begin{document}
 
@@ -139,8 +140,6 @@
 \bigskip
 \input{manuscript/abstract}
 
-% \noindent%\input{jasa-manuscript}
-% {\it Keywords:} Fréchet regression, object data, manifold learning, deep learning
 \vfill
 
 \newpage
@@ -152,7 +151,6 @@
 
 \input{manuscript/conclusion}
 
-\input{manuscript/supplementary-material}
 
 \bibliography{references}
 

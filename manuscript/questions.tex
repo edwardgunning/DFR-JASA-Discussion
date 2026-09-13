@@ -49,7 +49,7 @@ When such an investigation finds that $r \gg 2$ is required, as we have found in
     \includegraphics[width=0.7\linewidth]{figures/qfs-group-third-isomap.png}
     \includegraphics[width=0.75\linewidth]{figures/manifold-data-group-third-isomap.png}
     \includegraphics[width=0.675\linewidth]{figures/isomap-eigenvalues-group-third-isomap.png}
-    \includegraphics[width=0.7\linewidth]{figures/bottom-row-plot.pdf}
+    \includegraphics[width=0.65\linewidth]{figures/bottom-row-plot.pdf}
     \caption{
     \small
     \textbf{First row}: The empirical quantile functions from the authors' main simulation, their sensitivity analysis and our skew-normal example (left, center and right, respectively).
@@ -75,8 +75,10 @@ Once a vectorization structure for the objects has been assumed, we are back to 
 On a case-by-case basis, we can often find a transformation that maps the vectorized representations to unconstrained Euclidean space, e.g., the log-quantile density transformation for quantile functions \parencite{petersen_functional_2016} and the multivariate generalization of Fisher’s transformation for correlation matrices \parencite{desai_connectivity_2023}.
 Such transformations can be used to compose bespoke encoder-decoder architectures for different object types, at the expense of the full generality that DFR provides.
 
-The advantage of employing a transformation that decodes objects is that it allows us to eliminate, reduce, or at least diagnose approximation error in the latent space due to object reconstruction, isolating error purely from the latent non-parametric model.
-At present, DFR has approximation error from both sources, and although it is accounted for in the authors' theory, it can be challenging to assess in practice, as highlighted in the skew-normal example above. 
-In our own framework that is applied to images \parencite{gunning2026statistical}, we employ a near-lossless encoder-decoder architecture and a parametric latent regression model.
+Employing a transformation that decodes objects allows us to eliminate, reduce, or at least diagnose approximation error in the latent space due to object reconstruction, isolating error purely from the latent model.
+DFR has approximation error from both sources, and although it is accounted for in the authors' theory, it can be challenging to assess in practice, as highlighted our example above. 
+Our framework applied to images \parencite{gunning2026statistical} and distributions \parencite{stanley_2026_representation}, employs near-lossless encoder-decoder architectures and parametric latent regression models.
 Doing so constrains approximation error to the familiar Euclidean setting, where classical assessments and diagnostics can be employed.
-It is useful to contrast this with subsequent developments to the \Frechet regression framework, where the dual error source is eliminated by applying deep learning directly to learn the regression weights \parencite{zhou_end--end_2026}. These still require a case-by-case instantiation of a local search, usually harnessing additional vectorization that would also admit a decoder architecture.
+In contrast, subsequent developments to the \Frechet regression framework eliminate the dual error source by
+learning the regression weights directly using deep learning \parencite{zhou_end--end_2026}. 
+These still require a case-by-case instantiation of a local search, usually harnessing additional vectorization that would also admit a decoder architecture.
