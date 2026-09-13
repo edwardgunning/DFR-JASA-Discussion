@@ -77,7 +77,7 @@ Such transformations can be used to compose bespoke encoder-decoder architecture
 
 Employing a transformation that decodes objects allows us to eliminate, reduce, or at least diagnose approximation error in the latent space due to object reconstruction, isolating error purely from the latent model.
 DFR has approximation error from both sources, and although it is accounted for in the authors' theory, it can be challenging to assess in practice, as highlighted our example above. 
-Our framework applied to images \parencite{gunning2026statistical} and distributions \parencite{stanley_2026_representation}, employs near-lossless encoder-decoder architectures and parametric latent regression models.
+Our framework applied to images \parencite{gunning2026statistical} and distributions \parencite{stanley_2026_representation} employs near-lossless encoder-decoder architectures and parametric latent regression models.
 Doing so constrains approximation error to the familiar Euclidean setting, where classical assessments and diagnostics can be employed.
 In contrast, subsequent developments to the \Frechet regression framework eliminate the dual error source by
 learning the regression weights directly using deep learning \parencite{zhou_end--end_2026}. 

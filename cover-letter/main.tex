@@ -1,4 +1,4 @@
-\documentclass{letter}
+\documentclass[12pt]{letter}
 \usepackage{graphics}
 \usepackage{mathpazo}
 \usepackage{fullpage}
@@ -12,18 +12,20 @@
 \def\apl#1#2{
 \begin{letter}{#1}
 \signature{
+\vskip-4em
 \pdfimage width 1in {signature-cover-letter.pdf}
 Edward Gunning\\
 School of Mathematical Sciences\\
 University College Cork
-\\Ireland\\{\tt egunning@ucc.ie}}
+\\Ireland\\{\tt EGunning@ucc.ie}}
 \opening{{Dear #2,}}
 
-On behalf of my co-authors Giles Hooker, Kyle Stanley, Jeffrey S. Morris and I, please find enclosed our invited comment on Deep Fréchet Regression by Iao, Zhou, and Müller (2025), which we presented as a discussion at the 2026 Joint Statistical Meetings.
+On behalf of my co-authors Kyle Stanley, Jeffrey S. Morris, Giles Hooker and I, please find enclosed our invited commentary on Deep Fréchet Regression by Iao, Zhou, and Müller (2025), which we presented as a discussion at the 2026 Joint Statistical Meetings (JSM).
+We are very grateful for the opportunity and forum to discuss this important piece of work.
 
 I confirm that the work has not been published or submitted for consideration for publication elsewhere and all authors have read and approved the final version.
-The manuscript adheres to the prescribed limit of 8 pages for an invited comment (including references and figures, excluding the title page).
-In line with the JASA reproducibility policy, we have prepared a GitHub repository containing code and workflow to reproduce the results in the manuscript.\footnote{\href{https://github.com/edwardgunning/DFR-JASA-Discussion}{https://github.com/edwardgunning/DFR-JASA-Discussion}}
+The manuscript adheres to the prescribed limit of 8 pages for an invited comment (including the abstract, references and figures, but excluding the title page).
+In line with the JASA reproducibility policy, we have prepared a \textsf{GitHub} repository containing code to reproduce the results of the example in the manuscript\footnote{\href{https://github.com/edwardgunning/DFR-JASA-Discussion}{https://github.com/edwardgunning/DFR-JASA-Discussion}}.
 
 Thank you for your consideration of our work.
 
@@ -34,7 +36,9 @@ Thank you for your consideration of our work.
 \begin{document}
 
 % {{\pdfimage width 1.5in {logo.jpg}}}
-\apl{Dylan Small's affiliation}{Prof. Small }
+\apl{Prof. Dylan Small \\
+JASA Theory and Methods Co-Editor
+}{Prof. Small}
 
 \end{document}
 Footer
